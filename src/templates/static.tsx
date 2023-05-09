@@ -64,7 +64,6 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
 }): HeadConfig => {
   return {
     title: "Static Page Example",
-    charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
     tags: [
       {
@@ -84,158 +83,157 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
  * This is the main template. It can have any name as long as it's the default export.
  * The props passed in here are the direct result from `transformProps`.
  */
-const OnboardingPage: React.FC = () => {
-  const [formValues, setFormValues] = useState({
-    businessName: "",
-    addressLine1: "",
-    city: "",
-    zipCode: "",
-    state: "",
-    phoneNumber: "",
-  });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+const Onboarding = () => {
+  const [businessName, setBusinessName] = useState('');
+  const [addressLine1, setAddressLine1] = useState('');
+  const [city, setCity] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [state, setState] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [status, setStatus] = useState('');
 
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = {
+      name: businessName,
+      address: {
+        city: city,
+        countryCode: 'US',
+        line1: addressLine1,
+        postalCode: zipCode,
+        region: state,
       },
-      body: JSON.stringify({
-        name: formValues.businessName,
-        address: {
-          city: formValues.city,
-          countryCode: "US",
-          line1: formValues.addressLine1,
-          postalCode: formValues.zipCode,
-          region: formValues.state,
-        },
-        categoryIds: ["796"],
-        mainPhone: formValues.phoneNumber,
-      }),
+      categoryIds: ['796'],
+      mainPhone: phoneNumber,
     };
-
-    fetch(
-      "https://api.yextapis.com/v2/accounts/me/entities?api_key=94b68d320cb13995c19302519476d81e&v=20230509&entityType=location",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data); // handle successful response
-      })
-      .catch((error) => {
-        console.error(error); // handle error
-      });
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
+    try {
+      const response = await fetch(
+        `https://cors-anywhere.herokuapp.com/https://api.yextapis.com/v2/accounts/me/entities?api_key=94b68d320cb13995c19302519476d81e&v=20230509&entityType=location&url=${encodeURIComponent(
+          'https://api.yextapis.com/v2/accounts/me/entities?api_key=94b68d320cb13995c19302519476d81e&v=20230509&entityType=location'
+        )}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      setStatus(response.ok ? 'Success' : 'Error');
+    } catch (error) {
+      console.error(error);
+      setStatus('Error');
+    }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form onSubmit={handleSubmit} className="bg-gray-200 p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold mb-8">Onboarding</h1>
-        <div className="space-y-4">
-          <div>
-            <label htmlFor="businessName" className="font-semibold">
-              Business Name:
-            </label>
-            <input
-              type="text"
-              id="businessName"
-              name="businessName"
-              value={formValues.businessName}
-              onChange={handleInputChange}
-              required
-              className="w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
-          <div>
-            <label htmlFor="addressLine1" className="font-semibold">
-              Address Line 1:
-            </label>
-            <input
-              type="text"
-              id="addressLine1"
-              name="addressLine1"
-              value={formValues.addressLine1}
-              onChange={handleInputChange}
-              required
-              className="w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
-          <div>
-            <label htmlFor="city" className="font-semibold">
-              City:
-            </label>
-            <input
-              type="text"
-              id="city"
-              name="city"
-              value={formValues.city}
-              onChange={handleInputChange}
-              required
-              className="w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
-          <div>
-            <label htmlFor="zipCode" className="font-semibold">
-              Zip Code:
-            </label>
-            <input
-              type="text"
-              id="zipCode"
-              name="zipCode"
-              value={formValues.zipCode}
-              onChange={handleInputChange}
-              required
-              className="w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
-          <div>
-            <label htmlFor="state" className="font-semibold">
-              State:
-            </label>
-            <input
-              type="text"
-              id="state"
-              name="state"
-              value={formValues.state}
-              onChange={handleInputChange}
-              required
-              className="w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
-          <div>
-            <label htmlFor="phoneNumber" className="font-semibold">
-              Phone Number:
-            </label>
-            <input
-              type="text"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={formValues.phoneNumber}
-              onChange={handleInputChange}
-              required
-              className="w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
+    <div className="container mx-auto">
+      <h1 className="text-2xl font-bold text-center my-4">Contractor Onboarding</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-wrap mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Business Name:
+          </label>
+          <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter business name"
+            value={businessName}
+            onChange={(e) => setBusinessName(e.target.value)}
+            required
+          />
         </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white hover:bg-blue-600 rounded-md py-2 px-4 mt-6 w-full font-semibold">
-          Submit
-        </button>
-      </form>
-    </div>
-    );
-    };
-
-
-    export default OnboardingPage;
+        <div className="flex flex-wrap mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Address Line 1:
+          </label>
+          <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter address line 1"
+            value={addressLine1}
+            onChange={(e) => setAddressLine1(e.target.value)}
+            required
+          />
+        </div>
+        <div className="flex flex-wrap mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            City:
+          </label>
+          <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter city"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            required
+          />
+        </div>
+        <div className="flex flex-wrap mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Zip Code:
+          </label>
+          <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter zip code"
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
+            required
+            />
+            </div>
+            <div className="flex flex-wrap mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+            State:
+            </label>
+            <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter state"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            required
+            />
+            </div>
+            <div className="flex flex-wrap mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+            Phone Number:
+            </label>
+            <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter phone number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            required
+            />
+            </div>
+            <div className="flex justify-center">
+            <button
+                     type="submit"
+                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                   >
+            Submit
+            </button>
+            </div>
+            </form>
+            {status && (
+        <div className="text-center mt-4">
+          {status === 'Success' ? (
+            <p className="text-green-500">API call succeeded!</p>
+          ) : (
+            <p className="text-red-500">API call failed!</p>
+          )}
+        </div>
+      )}
+            </div>
+            );
+            };
+            
+            export default Onboarding;
+            
+            
 
 
           
