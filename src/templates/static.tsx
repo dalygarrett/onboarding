@@ -1,7 +1,6 @@
 /**
  * This is an example of how to create a static template that uses getStaticProps to retrieve data.
  */
-import * as React from "react";
 import { fetch } from "@yext/pages/util";
 import "../index.css";
 import {
@@ -15,6 +14,8 @@ import {
   TemplateRenderProps,
 } from "@yext/pages";
 import Favicon from "../public/yext-favicon.ico";
+import React, { useState } from 'react';
+
 
 /**
  * Not required for static templates, but will contain the stream configuration for
@@ -78,25 +79,166 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
 };
 
 
+
 /**
  * This is the main template. It can have any name as long as it's the default export.
  * The props passed in here are the direct result from `transformProps`.
  */
-const Static: Template<TemplateRenderProps> = ({
-  relativePrefixToRoot,
-  path,
-  document,
-}) => {
+const OnboardingPage: React.FC = () => {
+  const [formValues, setFormValues] = useState({
+    businessName: "",
+    addressLine1: "",
+    city: "",
+    zipCode: "",
+    state: "",
+    phoneNumber: "",
+  });
 
-  // This is the site object from the Knowledge Graph. It contains all the data 
-  // for the site entity, and can be accessed in any template, including static templates. 
-  const { _site } = document;
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formValues.businessName,
+        address: {
+          city: formValues.city,
+          countryCode: "US",
+          line1: formValues.addressLine1,
+          postalCode: formValues.zipCode,
+          region: formValues.state,
+        },
+        categoryIds: ["796"],
+        mainPhone: formValues.phoneNumber,
+      }),
+    };
+
+    fetch(
+      "https://api.yextapis.com/v2/accounts/me/entities?api_key=94b68d320cb13995c19302519476d81e&v=20230509&entityType=location",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // handle successful response
+      })
+      .catch((error) => {
+        console.error(error); // handle error
+      });
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
 
   return (
-    <>
-      <h1>Static Page</h1>
-    </>
-  );
-};
+    <div className="flex justify-center items-center h-screen">
+      <form onSubmit={handleSubmit} className="bg-gray-200 p-8 rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold mb-8">Onboarding</h1>
+        <div className="space-y-4">
+          <div>
+            <label htmlFor="businessName" className="font-semibold">
+              Business Name:
+            </label>
+            <input
+              type="text"
+              id="businessName"
+              name="businessName"
+              value={formValues.businessName}
+              onChange={handleInputChange}
+              required
+              className="w-full border border-gray-300 rounded-md p-2"
+            />
+          </div>
+          <div>
+            <label htmlFor="addressLine1" className="font-semibold">
+              Address Line 1:
+            </label>
+            <input
+              type="text"
+              id="addressLine1"
+              name="addressLine1"
+              value={formValues.addressLine1}
+              onChange={handleInputChange}
+              required
+              className="w-full border border-gray-300 rounded-md p-2"
+            />
+          </div>
+          <div>
+            <label htmlFor="city" className="font-semibold">
+              City:
+            </label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={formValues.city}
+              onChange={handleInputChange}
+              required
+              className="w-full border border-gray-300 rounded-md p-2"
+            />
+          </div>
+          <div>
+            <label htmlFor="zipCode" className="font-semibold">
+              Zip Code:
+            </label>
+            <input
+              type="text"
+              id="zipCode"
+              name="zipCode"
+              value={formValues.zipCode}
+              onChange={handleInputChange}
+              required
+              className="w-full border border-gray-300 rounded-md p-2"
+            />
+          </div>
+          <div>
+            <label htmlFor="state" className="font-semibold">
+              State:
+            </label>
+            <input
+              type="text"
+              id="state"
+              name="state"
+              value={formValues.state}
+              onChange={handleInputChange}
+              required
+              className="w-full border border-gray-300 rounded-md p-2"
+            />
+          </div>
+          <div>
+            <label htmlFor="phoneNumber" className="font-semibold">
+              Phone Number:
+            </label>
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formValues.phoneNumber}
+              onChange={handleInputChange}
+              required
+              className="w-full border border-gray-300 rounded-md p-2"
+            />
+          </div>
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white hover:bg-blue-600 rounded-md py-2 px-4 mt-6 w-full font-semibold">
+          Submit
+        </button>
+      </form>
+    </div>
+    );
+    };
 
-export default Static;
+
+    export default OnboardingPage;
+
+
+          
+
+
+
