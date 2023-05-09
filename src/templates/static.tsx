@@ -129,8 +129,14 @@ const Onboarding = () => {
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-2xl font-bold text-center my-4">Contractor Onboarding</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="text-4xl font-bold text-center my-8">Website Onboarding</h1>
+      <div className="flex flex-col md:flex-row">
+        <iframe
+          src="https://c7y2gld3us-47486-d.preview.pagescdn.com/christians-carpentry"
+          className="w-full md:w-2/3 h-128 border p-6"
+          title="Contractor Website"
+        ></iframe>
+        <form onSubmit={handleSubmit} className="w-1/3 p-6">
         <div className="flex flex-wrap mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Business Name:
@@ -218,7 +224,8 @@ const Onboarding = () => {
             </button>
             </div>
             </form>
-            {status && (
+      </div>
+      {status && (
         <div className="text-center mt-4">
           {status === 'Success' ? (
             <p className="text-green-500">API call succeeded!</p>
@@ -227,11 +234,11 @@ const Onboarding = () => {
           )}
         </div>
       )}
-            </div>
-            );
-            };
-            
-            export default Onboarding;
+    </div>
+  );
+};
+
+export default Onboarding;
             
             
 
