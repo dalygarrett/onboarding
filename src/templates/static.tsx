@@ -14,7 +14,7 @@ import {
   TemplateRenderProps,
 } from "@yext/pages";
 import Favicon from "../public/yext-favicon.ico";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -98,6 +98,8 @@ const Onboarding = () => {
   const [service2, setService2] = useState('');
   const [service3, setService3] = useState('');
   const [status, setStatus] = useState('');
+  const [previewLoading, setPreviewLoading] = useState(false);
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -134,9 +136,9 @@ const Onboarding = () => {
     setStatus(response.ok ? 'Request successful' : 'Request failed');
 
     if (response.ok) {
-      toast.success('Submitted!', { position: toast.POSITION.TOP_CENTER });
+      toast.success('Submitted! One of our team members will be in touch soon!', { position: toast.POSITION.TOP_CENTER });
     } else {
-      toast.error('Failed!', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Failed! Please try again soon!', { position: toast.POSITION.TOP_CENTER });
     }
   } catch (error) {
     console.error(error);
@@ -151,7 +153,6 @@ const Onboarding = () => {
       name: businessName,
       address: {
         city: city,
-        countryCode: 'US',
         line1: addressLine1,
         postalCode: zipCode,
         region: state
@@ -162,6 +163,25 @@ const Onboarding = () => {
       c_service2: service2,
       c_service3: service3,
     };
+
+    Object.keys(data).forEach((key) => {
+      if (typeof data[key] === 'object') {
+        // Remove empty address fields
+        const addressKeys = Object.keys(data[key]);
+        addressKeys.forEach((addressKey) => {
+          if (!data[key][addressKey]) {
+            delete data[key][addressKey];
+          }
+        });
+        if (addressKeys.length === 0) {
+          delete data[key];
+        }
+      } else if (!data[key]) {
+        // Remove empty form fields
+        delete data[key];
+      }
+    });
+  
   
     const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const apiUrl =
@@ -174,19 +194,25 @@ const Onboarding = () => {
       },
       body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(result => {
-      console.log('Preview request successful:', result);
-      // Add any further logic or state updates for preview response
-      toast.success('Preview request successful!', { position: toast.POSITION.TOP_CENTER });
-    })
-    .catch(error => {
-      console.error('Preview request failed:', error);
-      // Handle errors for the preview request
-      toast.error('Preview request failed!', { position: toast.POSITION.TOP_CENTER });
-    });
+      .then(response => {
+        if (response.ok) {
+          toast.success('Preview request successful! Please wait a few seconds to view changes!', { position: toast.POSITION.TOP_CENTER });
+          setTimeout(() => {
+            // Refresh the iframe after 10 seconds
+            const iframe = document.getElementById('previewIframe');
+            iframe.src = iframe.src; // Refresh by setting the same source URL
+          }, 7500);
+        } else {
+          toast.error('Preview request failed!', { position: toast.POSITION.TOP_CENTER });
+        }
+      })
+      .catch(error => {
+        console.error('Preview request failed:', error);
+        toast.error('Preview request failed!', { position: toast.POSITION.TOP_CENTER });
+      });
   };
-  
+
+
 
   return (
     <div className="container mx-auto max-w-full px-16">
@@ -196,6 +222,7 @@ const Onboarding = () => {
           src="https://xknzbzaelf-54758-d.preview.pagescdn.com/templateone"
           className="w-full md:w-2/3 h-128 border p-4"
           title="Contractor Website"
+          id="previewIframe"
         ></iframe>
         <form onSubmit={handleSubmit} className="w-1/3 p-4">
         <div className="flex flex-wrap mb-6">
@@ -346,7 +373,8 @@ const Onboarding = () => {
           type="button"
           className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           onClick={handlePreview}
-        >
+          disabled={previewLoading}
+            >
           Preview
         </button>
         </div>
