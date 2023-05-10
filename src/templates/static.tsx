@@ -91,6 +91,10 @@ const Onboarding = () => {
   const [zipCode, setZipCode] = useState('');
   const [state, setState] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [primaryColor, setPrimaryColor] = useState('');
+  const [service1, setService1] = useState('');
+  const [service2, setService2] = useState('');
+  const [service3, setService3] = useState('');
   const [status, setStatus] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -106,6 +110,10 @@ const Onboarding = () => {
       },
       categoryIds: ['796'],
       mainPhone: phoneNumber,
+      c_color: primaryColor,
+      c_service1: service1,
+      c_service2: service2,
+      c_service3: service3,
     };
     try {
       const response = await fetch(
@@ -128,7 +136,7 @@ const Onboarding = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto max-w-full px-16">
       <h1 className="text-4xl font-bold text-center my-8">Website Onboarding</h1>
       <div className="flex flex-col md:flex-row">
         <iframe
@@ -136,7 +144,7 @@ const Onboarding = () => {
           className="w-full md:w-2/3 h-128 border p-4"
           title="Contractor Website"
         ></iframe>
-        <form onSubmit={handleSubmit} className="w-1/3 p-6">
+        <form onSubmit={handleSubmit} className="w-1/3 p-4">
         <div className="flex flex-wrap mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Business Name:  
@@ -215,15 +223,75 @@ const Onboarding = () => {
             required
             />
             </div>
-            <div className="flex justify-center">
-            <button
-                     type="submit"
-                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                   >
+          <div className="flex flex-wrap mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Primary Color:
+          </label>
+          <select
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            value={primaryColor}
+            onChange={(e) => setPrimaryColor(e.target.value)}
+            required
+          >
+            <option value="">Select a color</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </select>
+        </div>
+
+        <div className="flex flex-wrap mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Service 1:
+          </label>
+          <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter service 1"
+            value={service1}
+            onChange={(e) => setService1(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="flex flex-wrap mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Service 2:
+          </label>
+          <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter service 2"
+            value={service2}
+            onChange={(e) => setService2(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="flex flex-wrap mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Service 3:
+          </label>
+          <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter service 3"
+            value={service3}
+            onChange={(e) => setService3(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
             Submit
-            </button>
-            </div>
-            </form>
+          </button>
+        </div>
+      </form>
+
       </div>
       {status && (
         <div className="text-center mt-4">
