@@ -57,7 +57,7 @@ export const config: TemplateConfig = {
     // Defines the scope of entities that qualify for this stream.
     filter: {
       entityTypes: ["location"],
-      savedFilterIds: ["1317399192"],
+      savedFilterIds: ["1317480177"],
     },
     // Specifies the exact data that each generated document will contain. This data is passed in
     // directly as props to the default exported function.

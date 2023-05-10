@@ -15,6 +15,8 @@ import {
 } from "@yext/pages";
 import Favicon from "../public/yext-favicon.ico";
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 /**
@@ -128,12 +130,63 @@ const Onboarding = () => {
           body: JSON.stringify(data),
         }
       );
-      setStatus(response.ok ? 'Success' : 'Error');
-    } catch (error) {
-      console.error(error);
-      setStatus('Error');
+
+    setStatus(response.ok ? 'Request successful' : 'Request failed');
+
+    if (response.ok) {
+      toast.success('Submitted!', { position: toast.POSITION.TOP_CENTER });
+    } else {
+      toast.error('Failed!', { position: toast.POSITION.TOP_CENTER });
     }
+  } catch (error) {
+    console.error(error);
+    setStatus('Error');
+    toast.error('Error!', { position: toast.POSITION.TOP_CENTER });
+  }
+    
   };
+
+  const handlePreview = () => {
+    const data = {
+      name: businessName,
+      address: {
+        city: city,
+        countryCode: 'US',
+        line1: addressLine1,
+        postalCode: zipCode,
+        region: state
+      },
+      mainPhone: phoneNumber,
+      c_color: primaryColor,
+      c_service1: service1,
+      c_service2: service2,
+      c_service3: service3,
+    };
+  
+    const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const apiUrl =
+      'https://api.yextapis.com/v2/accounts/me/entities/1?api_key=94b68d320cb13995c19302519476d81e&v=20230510';
+  
+    fetch(corsProxyUrl + apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log('Preview request successful:', result);
+      // Add any further logic or state updates for preview response
+      toast.success('Preview request successful!', { position: toast.POSITION.TOP_CENTER });
+    })
+    .catch(error => {
+      console.error('Preview request failed:', error);
+      // Handle errors for the preview request
+      toast.error('Preview request failed!', { position: toast.POSITION.TOP_CENTER });
+    });
+  };
+  
 
   return (
     <div className="container mx-auto max-w-full px-16">
@@ -155,7 +208,7 @@ const Onboarding = () => {
             placeholder="Enter business name"
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
-            required
+            
           />
         </div>
         <div className="flex flex-wrap mb-6">
@@ -168,7 +221,7 @@ const Onboarding = () => {
             placeholder="Enter address line 1"
             value={addressLine1}
             onChange={(e) => setAddressLine1(e.target.value)}
-            required
+            
           />
         </div>
         <div className="flex flex-wrap mb-6">
@@ -181,7 +234,7 @@ const Onboarding = () => {
             placeholder="Enter city"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            required
+            
           />
         </div>
         <div className="flex flex-wrap mb-6">
@@ -194,7 +247,7 @@ const Onboarding = () => {
             placeholder="Enter zip code"
             value={zipCode}
             onChange={(e) => setZipCode(e.target.value)}
-            required
+            
             />
             </div>
             <div className="flex flex-wrap mb-6">
@@ -207,7 +260,7 @@ const Onboarding = () => {
             placeholder="Enter state"
             value={state}
             onChange={(e) => setState(e.target.value)}
-            required
+            
             />
             </div>
             <div className="flex flex-wrap mb-6">
@@ -220,7 +273,7 @@ const Onboarding = () => {
             placeholder="Enter phone number"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            required
+            
             />
             </div>
           <div className="flex flex-wrap mb-6">
@@ -231,7 +284,7 @@ const Onboarding = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             value={primaryColor}
             onChange={(e) => setPrimaryColor(e.target.value)}
-            required
+            
           >
             <option value="">Select a color</option>
             <option value="red">Red</option>
@@ -250,7 +303,7 @@ const Onboarding = () => {
             placeholder="Enter service 1"
             value={service1}
             onChange={(e) => setService1(e.target.value)}
-            required
+            
           />
         </div>
 
@@ -264,7 +317,7 @@ const Onboarding = () => {
             placeholder="Enter service 2"
             value={service2}
             onChange={(e) => setService2(e.target.value)}
-            required
+            
           />
         </div>
 
@@ -278,30 +331,32 @@ const Onboarding = () => {
             placeholder="Enter service 3"
             value={service3}
             onChange={(e) => setService3(e.target.value)}
-            required
+            
           />
         </div>
 
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Submit
-          </button>
+        <div className="flex justify-center space-x-4">
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Submit
+        </button>
+        <button
+          type="button"
+          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          onClick={handlePreview}
+        >
+          Preview
+        </button>
         </div>
+
       </form>
 
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={true} />
+
       </div>
-      {status && (
-        <div className="text-center mt-4">
-          {status === 'Success' ? (
-            <p className="text-green-500">Submitted!</p>
-          ) : (
-            <p className="text-red-500">Failed!</p>
-          )}
-        </div>
-      )}
+
     </div>
   );
 };
