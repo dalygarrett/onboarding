@@ -72,21 +72,23 @@ export const config: TemplateConfig = {
       "slug",
       "geocodedCoordinate",
       "logo",
+      "description",
+      "c_color",
       // "c_primaryCTA",
       // "c_secondaryCTA",
       // "c_generatedDescription",
       // "c_bannerPhoto",
-      // "c_service1",
+      "c_service1",
       // "c_service1Photo",
-      // "c_service2",
+      "c_service2",
       // "c_service2Photo",
-      // "c_service3",
+      "c_service3",
       // "c_service3Photo",
-      // "c_offeringsHeader",
-      // "c_offeringsSubtitle",
-      // "c_service1Description",
-      // "c_service2Description",
-      // "c_service3Description",
+      "c_offeringsHeader",
+      "c_offeringsSubtitle",
+      "c_service1Description",
+      "c_service2Description",
+      "c_service3Description",
       // "c_benefit1",
       // "c_benefit1Description",
       // "c_benefit2",
@@ -199,6 +201,8 @@ const Location: Template<TemplateRenderProps> = ({
     c_benefitsHeader,
     c_benefitsSubtitle,
     c_chatURL,
+    description,
+    c_color,
   } = document;
   return (
     <>
@@ -208,39 +212,39 @@ const Location: Template<TemplateRenderProps> = ({
       <main className="grow">
         {/*  Page illustration */}
         <div className="relative max-w-6xl mx-auto h-0 pointer-events-none" aria-hidden="true">
-          <PageIllustration />
+          <PageIllustration color={c_color}/>
         </div>
 
 
 
         {/*  Page sections */}
-        <HeroHome name={name} description={"c_generatedDescription"} cta1={"c_primaryCTA.label"} cta2={"c_secondaryCTA.label"} image={"https://cdn.fs.brandfolder.com/cache=expiry:604800/71ay5yvBS2L4XuZLLEyP"}/>
+        <HeroHome name={name} color={c_color} description={description} cta1={"Contact Now"} cta2={"Learn More"} image={"https://cdn.fs.brandfolder.com/cache=expiry:604800/71ay5yvBS2L4XuZLLEyP"}/>
        
        
-        <FeaturesZigZag headline={"c_offeringsHeader"} subtitle={"c_offeringsSubtitle"}
-        service1={"c_service1"} service1desc={"c_service1Description"} service1photo={"https://cdn.fs.brandfolder.com/cache=expiry:604800/71ay5yvBS2L4XuZLLEyP"}
-        service2={"c_service2"} service2desc={"c_service2Description"} service2photo={"https://cdn.fs.brandfolder.com/cache=expiry:604800/71ay5yvBS2L4XuZLLEyP"}
-        service3={"c_service3"} service3desc={"c_service3Description"} service3photo={"https://cdn.fs.brandfolder.com/cache=expiry:604800/71ay5yvBS2L4XuZLLEyP"}/>
-        <FeaturesBlocks headline={"c_benefitsHeader"} subtitle={"c_benefitsSubtitle"}
+        <FeaturesZigZag headline={c_offeringsHeader} subtitle={c_offeringsSubtitle} color={c_color}
+        service1={c_service1} service1desc={c_service1Description} service1photo={"https://mma.prnewswire.com/media/177279/yext_logo.jpg?p=facebook"}
+        service2={c_service2} service2desc={c_service2Description} service2photo={"https://mma.prnewswire.com/media/177279/yext_logo.jpg?p=facebook"}
+        service3={c_service3} service3desc={c_service3Description} service3photo={"https://mma.prnewswire.com/media/177279/yext_logo.jpg?p=facebook"}/>
+        {/* <FeaturesBlocks headline={"c_benefitsHeader"} subtitle={"c_benefitsSubtitle"}
         benefit1={"c_benefit1"} benefit1desc={"c_benefit1Description"}
         benefit2={"c_benefit2"} benefit2desc={"c_benefit2Description"}
         benefit3={"c_benefit3"} benefit3desc={"c_benefit3Description"}
         benefit4={"c_benefit4"} benefit4desc={"c_benefit4Description"}
         benefit5={"c_benefit5"} benefit5desc={"c_benefit5Description"}
-        benefit6={"c_benefit6"} benefit6desc={"c_benefit6Description"}/>
+        benefit6={"c_benefit6"} benefit6desc={"c_benefit6Description"}/> */}
         
-        <Testimonials />
+        <Testimonials color={c_color}/>
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="py-12 md:py-20">
         <div className="max-w-sm mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-16 items-start md:max-w-2xl lg:max-w-none" data-aos-id-blocks style={{justifyContent: 'center'}}>
           <div className="relative flex flex-col items-center" data-aos="fade-up" data-aos-anchor="[data-aos-id-blocks]">
-          {hours && <Hours title={"Hours"} hours={hours} />}
+          {hours && <Hours color={c_color} title={"Hours"} hours={hours} />}
           </div>
           <div className="relative flex flex-col items-center" data-aos="fade-up" data-aos-delay="100" data-aos-anchor="[data-aos-id-blocks]">
           <Details address={address} phone={mainPhone}/>
           </div>
-          <div className="relative flex flex-col justify-center	border-4 border-purple-400 items-center" data-aos="fade-up" data-aos-delay="200" data-aos-anchor="[data-aos-id-blocks]" style={{textAlign: 'center'}}>
+          <div className="relative flex flex-col justify-center	border-4 border-grey-400 items-center" data-aos="fade-up" data-aos-delay="200" data-aos-anchor="[data-aos-id-blocks]" style={{textAlign: 'center'}}>
           {geocodedCoordinate && <StaticMap latitude={geocodedCoordinate.latitude} longitude={geocodedCoordinate.longitude} />}
           </div>
         </div>
@@ -248,7 +252,7 @@ const Location: Template<TemplateRenderProps> = ({
         </div>
 
         
-        <Newsletter />
+        <Newsletter color={c_color}/>
         
       </main>
       

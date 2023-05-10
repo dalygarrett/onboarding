@@ -4,6 +4,7 @@ type Hours = {
   title?: string;
   hours: Week;
   children?: React.ReactNode;
+  color: any;
 };
 
 interface Week extends Record<string, any> {
@@ -109,13 +110,35 @@ type DayRow = {
   dayName: string;
   day: Day;
   isToday?: boolean;
+  color: any;
 };
 
 const DayRow = (props: DayRow) => {
-  const { dayName, day, isToday } = props;
+  const { dayName, day, isToday, color } = props;
+
+  const getColorClasses = () => {
+    let classes = 'text-base ';
+    switch (color) {
+      case 'red':
+        classes += 'bg-red-600';
+        break;
+      case 'blue':
+        classes += 'bg-blue-600';
+        // classes += 'hover:bg-blue-700';
+        break;
+      case 'green':
+        classes += 'bg-green-600';
+        break;
+      // Add more cases for other colors if needed
+      default:
+        break;
+    }
+    return classes;
+  };
+
 
   return (
-    <tr className={isToday ? "bg-purple-200 font-bold" : ""}>
+    <tr className={isToday ? `${getColorClasses()} font-bold` : ""}>
       <td className="text-lg text-gray-600 text-left capitalize">
         <span>{dayName}</span>
       </td>

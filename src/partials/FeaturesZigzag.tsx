@@ -16,9 +16,30 @@ type FeaturesZigzagProps = {
   service3: any;
   service3desc: any;
   service3photo: any;
+  color: any;
 };
 
-const FeaturesZigzag = ({ headline, subtitle, service1, service1desc, service2, service2desc, service3, service3desc, service1photo, service2photo, service3photo } : FeaturesZigzagProps) => {    
+const FeaturesZigzag = ({ headline, subtitle, service1, service1desc, service2, service2desc, service3, service3desc, service1photo, service2photo, service3photo, color } : FeaturesZigzagProps) => {    
+
+  const getColorClasses = () => {
+    let classes = 'text-base ';
+    switch (color) {
+      case 'red':
+        classes += 'text-red-600';
+        break;
+      case 'blue':
+        classes += 'text-blue-600';
+        break;
+      case 'green':
+        classes += 'text-green-600';
+        break;
+      // Add more cases for other colors if needed
+      default:
+        break;
+    }
+    return classes;
+  }
+
 
   return (
     <section>
@@ -46,7 +67,7 @@ const FeaturesZigzag = ({ headline, subtitle, service1, service1desc, service2, 
               {/* Content */}
               <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6" data-aos="fade-right">
                 <div className="md:pr-4 lg:pr-12 xl:pr-16">
-                  <div className="font-sans-serif text-xl text-purple-600 mb-2">Results that exceed expectations</div>
+                  <div className={`font-sans-serif text-2xl ${getColorClasses()} mb-2`}>Results that exceed expectations</div>
                   <h3 className="h3 mb-3">{service1}</h3>
                   <p className="text-xl text-gray-400 mb-4">{service1desc}</p>
                   {/* <ul className="text-lg text-gray-400 -mb-2">
@@ -82,7 +103,7 @@ const FeaturesZigzag = ({ headline, subtitle, service1, service1desc, service2, 
               {/* Content */}
               <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6" data-aos="fade-left">
                 <div className="md:pl-4 lg:pl-12 xl:pl-16">
-                  <div className="font-sans-serif text-xl text-purple-600 mb-2">Unmatched commitment to excellence</div>
+                  <div className={`font-sans-serif text-2xl ${getColorClasses()} mb-2`}>Unmatched commitment to excellence</div>
                   <h3 className="h3 mb-3">{service2}</h3>
                   <p className="text-xl text-gray-400 mb-4">{service2desc}</p>
                   {/* <ul className="text-lg text-gray-400 -mb-2">
@@ -118,7 +139,7 @@ const FeaturesZigzag = ({ headline, subtitle, service1, service1desc, service2, 
               {/* Content */}
               <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6" data-aos="fade-right">
                 <div className="md:pr-4 lg:pr-12 xl:pr-16">
-                  <div className="font-sans-serif text-xl text-purple-600 mb-2">Tailored service that exceeds expectations</div>
+                  <div className={`font-sans-serif text-2xl ${getColorClasses()} mb-2`}>Tailored service that exceeds expectations</div>
                   <h3 className="h3 mb-3">{service3}</h3>
                   <p className="text-xl text-gray-400 mb-4">{service3desc}</p>
                   {/* <ul className="text-lg text-gray-400 -mb-2">

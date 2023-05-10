@@ -29,7 +29,7 @@ function Footer() {
 
               {/* 2nd block */}
               <div className="text-sm">
-              <a className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out font-medium mb-1" href="#0">Instagram</a>
+              <a className="text-grey-600 hover:text-gray-200 transition duration-150 ease-in-out font-medium mb-1" href="#0">Instagram</a>
                 
                 <ul>
                   {/* <li className="mb-1">
@@ -46,7 +46,7 @@ function Footer() {
 
               {/* 3rd block */}
               <div className="text-sm">
-              <a className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out font-medium mb-1" href="#0">LinkedIn</a>
+              <a className="text-grey-600 hover:text-gray-200 transition duration-150 ease-in-out font-medium mb-1" href="#0">LinkedIn</a>
                 <ul>
                   {/* <li className="mb-1">
                     <Link to="#" className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Nostrud exercitation</Link>
@@ -68,7 +68,7 @@ function Footer() {
 
               {/* 4th block */}
               <div className="text-sm">
-                <a className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out font-medium mb-1" href="#0">Twitter</a>
+                <a className="text-grey-600 hover:text-gray-200 transition duration-150 ease-in-out font-medium mb-1" href="#0">Twitter</a>
                 <ul>
                   {/* <li className="mb-1">
                     <Link to="#" className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Consectetur adipiscing</Link>

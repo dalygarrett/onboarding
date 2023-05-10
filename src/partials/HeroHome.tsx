@@ -8,9 +8,30 @@ type HeroHomeProps = {
     cta1: any;
     cta2: any;
     image: any;
+    color: any;
   };
  
-const HeroHome = ({ name, description, cta1, cta2, image } : HeroHomeProps) => {    
+const HeroHome = ({ name, description, cta1, cta2, image, color } : HeroHomeProps) => {    
+  
+    const getColorClasses = () => {
+      let classes = 'text-base ';
+      switch (color) {
+        case 'red':
+          classes += 'bg-red-600 hover:bg-red-700';
+          break;
+        case 'blue':
+          classes += 'bg-blue-600 hover:bg-blue-700';
+          // classes += 'hover:bg-blue-700';
+          break;
+        case 'green':
+          classes += 'bg-green-600 hover:bg-green-700';
+          break;
+        // Add more cases for other colors if needed
+        default:
+          break;
+      }
+      return classes;
+    };
   
   
 //   const [videoModalOpen, setVideoModalOpen] = useState(false);
@@ -35,8 +56,8 @@ const HeroHome = ({ name, description, cta1, cta2, image } : HeroHomeProps) => {
           <svg className="max-w-full" width="564" height="552" viewBox="0 0 564 552" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="illustration-02" x1="-3.766" y1="300.204" x2="284.352" y2="577.921" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#5D5DFF" stopOpacity=".01" />
-                <stop offset="1" stopColor="#5D5DFF" stopOpacity=".32" />
+                <stop stopColor={color} stopOpacity=".01" />
+                <stop offset="1" stopColor={color} stopOpacity=".32" />
               </linearGradient>
             </defs>
             <path
@@ -58,7 +79,7 @@ const HeroHome = ({ name, description, cta1, cta2, image } : HeroHomeProps) => {
             </p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
-                <a className="btn text-white rounded-md bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" href="#0">
+                <a className={`btn ${getColorClasses()} text-white rounded-md w-full mb-4 sm:w-auto sm:mb-0`} href="#0">
                   {cta1}
                 </a>
               </div>
