@@ -193,7 +193,7 @@ const Onboarding = () => {
       <h1 className="text-4xl font-bold text-center my-8">Website Onboarding</h1>
       <div className="flex flex-col md:flex-row">
         <iframe
-          src="https://zzzeultgfv-54758-d.preview.pagescdn.com/template-1"
+          src="https://xknzbzaelf-54758-d.preview.pagescdn.com/templateone"
           className="w-full md:w-2/3 h-128 border p-4"
           title="Contractor Website"
         ></iframe>
@@ -363,10 +363,3 @@ const Onboarding = () => {
 
 export default Onboarding;
             
-            
-
-
-          
-
-
-
