@@ -132,14 +132,14 @@ const Onboarding = () => {
       <h1 className="text-4xl font-bold text-center my-8">Website Onboarding</h1>
       <div className="flex flex-col md:flex-row">
         <iframe
-          src="https://c7y2gld3us-47486-d.preview.pagescdn.com/christians-carpentry"
-          className="w-full md:w-2/3 h-128 border p-6"
+          src="https://zzzeultgfv-54758-d.preview.pagescdn.com/template-1"
+          className="w-full md:w-2/3 h-128 border p-4"
           title="Contractor Website"
         ></iframe>
         <form onSubmit={handleSubmit} className="w-1/3 p-6">
         <div className="flex flex-wrap mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Business Name:
+            Business Name:  
           </label>
           <input
             type="text"
@@ -228,9 +228,9 @@ const Onboarding = () => {
       {status && (
         <div className="text-center mt-4">
           {status === 'Success' ? (
-            <p className="text-green-500">API call succeeded!</p>
+            <p className="text-green-500">Submitted!</p>
           ) : (
-            <p className="text-red-500">API call failed!</p>
+            <p className="text-red-500">Failed!</p>
           )}
         </div>
       )}
