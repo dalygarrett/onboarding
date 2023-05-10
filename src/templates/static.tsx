@@ -256,44 +256,46 @@ const Onboarding = () => {
           />
         </div>
         <div className="flex flex-wrap mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+        <div className="w-1/3 pr-2">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="city">
             City:
           </label>
           <input
             type="text"
+            id="city"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Enter city"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            
           />
         </div>
-        <div className="flex flex-wrap mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Zip Code:
+        <div className="w-1/3 px-2">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="state">
+            State:
           </label>
           <input
             type="text"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter zip code"
-            value={zipCode}
-            onChange={(e) => setZipCode(e.target.value)}
-            
-            />
-            </div>
-            <div className="flex flex-wrap mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-            State:
-            </label>
-            <input
-            type="text"
+            id="state"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Enter state"
             value={state}
             onChange={(e) => setState(e.target.value)}
-            
-            />
-            </div>
+          />
+        </div>
+        <div className="w-1/3 pl-2">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="zipCode">
+            Zip Code:
+          </label>
+          <input
+            type="text"
+            id="zipCode"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter zip code"
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
+          />
+        </div>
+      </div>
             <div className="flex flex-wrap mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2">
             Phone Number:
