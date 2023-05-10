@@ -99,6 +99,8 @@ const Onboarding = () => {
   const [service3, setService3] = useState('');
   const [status, setStatus] = useState('');
   const [previewLoading, setPreviewLoading] = useState(false);
+  const [bannerImageUrl, setBannerImageUrl] = useState('');
+
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -118,6 +120,7 @@ const Onboarding = () => {
       c_service1: service1,
       c_service2: service2,
       c_service3: service3,
+      c_bannerImageUrl: bannerImageUrl,
     };
     try {
       const response = await fetch(
@@ -162,6 +165,7 @@ const Onboarding = () => {
       c_service1: service1,
       c_service2: service2,
       c_service3: service3,
+      c_bannerImageUrl: bannerImageUrl,
     };
 
     Object.keys(data).forEach((key) => {
@@ -361,6 +365,20 @@ const Onboarding = () => {
             
           />
         </div>
+
+        <div className="flex flex-wrap mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Banner Image URL:
+          </label>
+          <input
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter banner image URL"
+            value={bannerImageUrl}
+            onChange={(e) => setBannerImageUrl(e.target.value)}
+          />
+        </div>
+
 
         <div className="flex justify-center space-x-4">
         <button

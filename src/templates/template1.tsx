@@ -77,7 +77,7 @@ export const config: TemplateConfig = {
       // "c_primaryCTA",
       // "c_secondaryCTA",
       // "c_generatedDescription",
-      // "c_bannerPhoto",
+      "c_bannerImageUrl",
       "c_service1",
       // "c_service1Photo",
       "c_service2",
@@ -174,7 +174,7 @@ const Location: Template<TemplateRenderProps> = ({
     c_primaryCTA,
     c_secondaryCTA,
     c_generatedDescription,
-    c_bannerPhoto,
+    c_bannerImageUrl,
     c_service1,
     c_service1Photo,
     c_service2,
@@ -218,7 +218,7 @@ const Location: Template<TemplateRenderProps> = ({
 
 
         {/*  Page sections */}
-        <HeroHome name={name} color={c_color} description={description} cta1={"Contact Now"} cta2={"Learn More"} image={"https://cdn.fs.brandfolder.com/cache=expiry:604800/71ay5yvBS2L4XuZLLEyP"}/>
+        <HeroHome name={name} color={c_color} description={description} cta1={"Contact Now"} cta2={"Learn More"} image={c_bannerImageUrl}/>
        
        
         <FeaturesZigZag headline={c_offeringsHeader} subtitle={c_offeringsSubtitle} color={c_color}
