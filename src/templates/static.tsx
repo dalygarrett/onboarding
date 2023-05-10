@@ -100,6 +100,9 @@ const Onboarding = () => {
   const [status, setStatus] = useState('');
   const [previewLoading, setPreviewLoading] = useState(false);
   const [bannerImageUrl, setBannerImageUrl] = useState('');
+  const [domain, setDomain] = useState('');
+  const [availability, setAvailability] = useState('');
+
 
 
 
@@ -215,6 +218,25 @@ const Onboarding = () => {
         toast.error('Preview request failed!', { position: toast.POSITION.TOP_CENTER });
       });
   };
+
+  const checkAvailability = async () => {
+    try {
+      const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.ote-godaddy.com/v1/domains/available?domain=${domain}`, {
+        headers: {
+          'Authorization': 'sso-key 3mM44Uch7KoNHJ_XsTFrDMcfQa48QKqmSLXKP:YY3DVBvWJVm49S47vN2ror',
+          'Content-Type': 'application/json',
+        }
+      });
+  
+      const data = await response.json();
+      setAvailability(data.available ? 'Available' : 'Unavailable');
+    } catch (error) {
+      console.error(error);
+      setAvailability('Error');
+    }
+  };
+  
+  
 
 
 
@@ -380,6 +402,29 @@ const Onboarding = () => {
             onChange={(e) => setBannerImageUrl(e.target.value)}
           />
         </div>
+
+        <div className="mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Domain:
+          </label>
+          <div className="flex">
+            <input
+              type="text"
+              className="shadow appearance-none border rounded-l w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Enter domain name"
+              value={domain}
+              onChange={(e) => setDomain(e.target.value)}
+            />
+            <button
+              type="button"
+              className="ml-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline"
+              onClick={checkAvailability}
+            >
+              Check
+            </button>
+          </div>
+        </div>
+
 
 
         <div className="flex justify-center space-x-4">
