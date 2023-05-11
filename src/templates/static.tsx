@@ -19,6 +19,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 /**
  * Not required for static templates, but will contain the stream configuration for
  * entity-powered templates.
@@ -81,6 +82,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
 
 
 
+
 /**
  * This is the main template. It can have any name as long as it's the default export.
  * The props passed in here are the direct result from `transformProps`.
@@ -127,7 +129,7 @@ const Onboarding = () => {
     };
     try {
       const response = await fetch(
-        `https://cors-anywhere.herokuapp.com/https://api.yextapis.com/v2/accounts/me/entities?api_key=94b68d320cb13995c19302519476d81e&v=20230509&entityType=location&url=${encodeURIComponent(
+        `https://proxy.cors.sh/https://api.yextapis.com/v2/accounts/me/entities?api_key=94b68d320cb13995c19302519476d81e&v=20230509&entityType=location&url=${encodeURIComponent(
           'https://api.yextapis.com/v2/accounts/me/entities?api_key=94b68d320cb13995c19302519476d81e&v=20230509&entityType=location'
         )}`,
         {
@@ -190,7 +192,7 @@ const Onboarding = () => {
     });
   
   
-    const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const corsProxyUrl = 'https://proxy.cors.sh/';
     const apiUrl =
       'https://api.yextapis.com/v2/accounts/me/entities/1?api_key=94b68d320cb13995c19302519476d81e&v=20230510';
   
@@ -221,28 +223,52 @@ const Onboarding = () => {
 
   const checkAvailability = async () => {
     try {
-      const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.ote-godaddy.com/v1/domains/available?domain=${domain}`, {
+      const currentOrigin = window.location.origin;
+      const response = await fetch(`https://proxy.cors.sh/https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_m5oPygoPcSxUn4OiCiEGCDIlGzQai&domainName=${domain}&credits=DA`, {
         headers: {
-          'Authorization': 'sso-key 3mM44Uch7KoNHJ_XsTFrDMcfQa48QKqmSLXKP:YY3DVBvWJVm49S47vN2ror',
           'Content-Type': 'application/json',
         }
       });
   
       const data = await response.json();
-      setAvailability(data.available ? 'Available' : 'Unavailable');
+  
+      // Extract domainAvailability from DomainInfo object
+      const domainAvailability = data.DomainInfo?.domainAvailability;
+  
+      if (domainAvailability === 'AVAILABLE') {
+        toast.success('That domain is available', {
+          position: toast.POSITION.TOP_CENTER
+        });
+      } else if (domainAvailability === 'UNAVAILABLE') {
+        toast.error('That domain is taken', {
+          position: toast.POSITION.TOP_CENTER
+        });
+      } else {
+        toast.error('Unknown domain availability', {
+          position: toast.POSITION.TOP_CENTER
+        });
+      }
     } catch (error) {
       console.error(error);
-      setAvailability('Error');
+      toast.error('Error occurred', {
+        position: toast.POSITION.TOP_CENTER
+      });
     }
   };
+        
   
-  
-
 
 
   return (
     <div className="container mx-auto max-w-full px-16">
-      <h1 className="text-4xl font-bold text-center my-8">Website Onboarding</h1>
+      <h1 className="text-4xl font-bold text-center mt-12">Website Onboarding</h1>
+      <div className="flex justify-center">
+          <div className="mx-auto bg-white shadow-md border rounded-lg p-4 w-2/3 my-8">
+            <p className="text-gray-500 text-xl text-center">
+              Please fill out your business information using the form on the right side of the screen. If you want to preview the website template with your data, click the preview button and wait a few seconds for the page to update. If you are happy with the site, click submit and our team will reach out with the finalized website.
+            </p>
+          </div>
+      </div>
       <div className="flex flex-col md:flex-row">
         <iframe
           src="https://zsy7cbbqn3-54758-d.preview.pagescdn.com/templateone"
@@ -431,6 +457,7 @@ const Onboarding = () => {
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          onClick={handleSubmit}
         >
           Submit
         </button>
