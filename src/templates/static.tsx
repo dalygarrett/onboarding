@@ -126,6 +126,9 @@ const Onboarding = () => {
       c_service2: service2,
       c_service3: service3,
       c_bannerImageUrl: bannerImageUrl,
+      c_domain: domain,
+      c_offeringsHeader: "What We Offer",
+      slug: "[[name]]",
     };
     try {
       const response = await fetch(

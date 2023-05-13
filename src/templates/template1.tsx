@@ -57,7 +57,7 @@ export const config: TemplateConfig = {
     // Defines the scope of entities that qualify for this stream.
     filter: {
       entityTypes: ["location"],
-      savedFilterIds: ["1317480177"],
+      // savedFilterIds: ["1317480177"],
     },
     // Specifies the exact data that each generated document will contain. This data is passed in
     // directly as props to the default exported function.
@@ -72,7 +72,7 @@ export const config: TemplateConfig = {
       "slug",
       "geocodedCoordinate",
       "logo",
-      "description",
+      "c_businessDescription",
       "c_color",
       // "c_primaryCTA",
       // "c_secondaryCTA",
@@ -201,7 +201,7 @@ const Location: Template<TemplateRenderProps> = ({
     c_benefitsHeader,
     c_benefitsSubtitle,
     c_chatURL,
-    description,
+    c_businessDescription,
     c_color,
   } = document;
   return (
@@ -218,7 +218,7 @@ const Location: Template<TemplateRenderProps> = ({
 
 
         {/*  Page sections */}
-        <HeroHome name={name} color={c_color} description={description} cta1={"Contact Now"} cta2={"Learn More"} image={c_bannerImageUrl}/>
+        <HeroHome name={name} color={c_color} description={c_businessDescription} cta1={"Contact Now"} cta2={"Learn More"} image={c_bannerImageUrl}/>
        
        
         <FeaturesZigZag headline={c_offeringsHeader} subtitle={c_offeringsSubtitle} color={c_color}
