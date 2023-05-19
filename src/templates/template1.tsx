@@ -222,9 +222,9 @@ const Location: Template<TemplateRenderProps> = ({
        
        
         <FeaturesZigZag headline={c_offeringsHeader} subtitle={c_offeringsSubtitle} color={c_color}
-        service1={c_service1} service1desc={c_service1Description} service1photo={"https://mma.prnewswire.com/media/177279/yext_logo.jpg?p=facebook"}
-        service2={c_service2} service2desc={c_service2Description} service2photo={"https://mma.prnewswire.com/media/177279/yext_logo.jpg?p=facebook"}
-        service3={c_service3} service3desc={c_service3Description} service3photo={"https://mma.prnewswire.com/media/177279/yext_logo.jpg?p=facebook"}/>
+        service1={c_service1} service1desc={c_service1Description} service1photo={"https://static.vecteezy.com/system/resources/previews/006/511/865/original/illustration-graphic-cartoon-character-of-small-business-vector.jpg"}
+        service2={c_service2} service2desc={c_service2Description} service2photo={"https://static.vecteezy.com/system/resources/previews/006/511/808/original/illustration-graphic-cartoon-character-of-small-business-free-vector.jpg"}
+        service3={c_service3} service3desc={c_service3Description} service3photo={"https://static.vecteezy.com/system/resources/previews/006/416/999/original/illustration-graphic-cartoon-character-of-business-promotion-vector.jpg"}/>
         {/* <FeaturesBlocks headline={"c_benefitsHeader"} subtitle={"c_benefitsSubtitle"}
         benefit1={"c_benefit1"} benefit1desc={"c_benefit1Description"}
         benefit2={"c_benefit2"} benefit2desc={"c_benefit2Description"}
