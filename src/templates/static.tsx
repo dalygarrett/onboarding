@@ -139,6 +139,7 @@ const Onboarding = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'x-cors-api-key': 'test_c19542dea128b98976ed9de092977f35c2e7af9739c060475f0100b5673e192f',
           },
           body: JSON.stringify(data),
         }
@@ -202,7 +203,8 @@ const Onboarding = () => {
     fetch(corsProxyUrl + apiUrl, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-cors-api-key': 'test_c19542dea128b98976ed9de092977f35c2e7af9739c060475f0100b5673e192f',
       },
       body: JSON.stringify(data)
     })
@@ -230,6 +232,7 @@ const Onboarding = () => {
       const response = await fetch(`https://proxy.cors.sh/https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_m5oPygoPcSxUn4OiCiEGCDIlGzQai&domainName=${domain}&credits=DA`, {
         headers: {
           'Content-Type': 'application/json',
+          'x-cors-api-key': 'test_c19542dea128b98976ed9de092977f35c2e7af9739c060475f0100b5673e192f',
         }
       });
   
