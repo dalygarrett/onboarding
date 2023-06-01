@@ -33,7 +33,7 @@ const Newsletter = ({ color } : NewsletterProps) => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* CTA box */}
-        <div className={`relative ${getColorClasses()} rounded-lg py-10 px-8 md:py-16 md:px-12" data-aos="fade-up`}>
+        <div className={`relative bg-gray-800 rounded-lg py-10 px-8 md:py-16 md:px-12" data-aos="fade-up`}>
 
           {/* Background illustration */}
           <div className="absolute right-0 top-0 -ml-40 pointer-events-none" aria-hidden="true">
